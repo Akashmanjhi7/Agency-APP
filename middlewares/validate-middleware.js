@@ -5,8 +5,17 @@ const validate = (schema) => async (req,res,next)=>{
         next();
     } catch (error) {
         console.log(error.issues[0].message)
-        const message = error.issues[0].message
-        res.status(400).json({"msg" : message})
+        const status = 422 ;
+        const message  = "Fill Inputs Properly";
+        const extraDetails = error.issues[0].message
+
+        const errors = {
+            status, 
+            message,
+            extraDetails
+        }
+
+        next(errors)
     }
 } 
 

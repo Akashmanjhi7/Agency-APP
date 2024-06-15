@@ -5,8 +5,11 @@ const app = express();
 
 const route =  require("./router/auth-router");
 const connectDB = require("./utils/db");
+const errorMiddleware = require("./middlewares/error-middleware");
+
 app.use(express.json())
 app.use("/api/auth", route)
+app.use(errorMiddleware)
 
 connectDB();
 

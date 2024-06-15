@@ -14,7 +14,7 @@ const home = async (req, res) => {
 }
 
 //  Register Controllers
-const register = async (req, res) => {
+const register = async (req, res,next ) => {
 
     try {
 
@@ -34,12 +34,12 @@ const register = async (req, res) => {
         res.status(201).json({ msg: "Registration sucessfull", token: userCreated.genrateToken(), userId: userCreated._id.toString() })
 
     } catch (error) {
-        console.log(error)
+        next(error)
     }
 }
 
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
 
     try {
         const { email, password } = req.body;
@@ -64,7 +64,7 @@ const login = async (req, res) => {
         }
 
     } catch (error) {
-        res.status(500).json("internal server error")
+        next(error)
     }
 }
 
